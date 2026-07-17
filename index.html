@@ -1,12 +1,145 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8">
-    <title>Гендер-пати</title>
-  </head>
-  <body>
-    <h1>Гендерная вечеринка 🎉</h1>
-    <p>Скоро узнаем, кто будет: мальчик или девочка!</p>
-  </body>
-</html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Приглашение на гендер-пати 🎉</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f9efe7, #fde7ef, #e8f4ff);
+            color: #333;
+        }
+        .s {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .card {
+            max-width: 760px;
+            width: 100%;
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.15);
+        }
+        h2 { color: #333; text-align: center; }
+        h3 { text-align: center; color: #d88fb6; }
+        p.invite, .address-box { text-align: center; line-height: 1.6; font-size: 18px; color: #555; }
+        
+        /* Красивый блок с адресом и временем */
+        .address-box {
+            background: #fff8f8;
+            border: 2px dashed #d88fb6;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 20px 0;
+            font-weight: bold;
+            color: #d05a7a;
+        }
 
+        label {
+            display: block;
+            margin-top: 16px;
+            font-weight: bold;
+        }
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        select { font-size: 16px; }
+        textarea { height: 80px; }
+
+        .radio-group { margin-top: 8px; }
+        .radio-group label { font-weight: normal; display: inline-block; margin-right: 16px; }
+        .radio-group input { margin-right: 6px; }
+
+        button {
+            background: #d88fb6;
+            color: #fff;
+            border: 0;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="s">
+        <div class="card">
+            <h2>🎉 Гендер-пати: узнаём пол малыша! 🎉</h2>
+            <h3>Мы приглашаем тебя разделить этот особенный момент!</h3>
+
+            <p class="invite">
+                Это будет тёплый, радостный вечер с близкими. Мы хотим заранее понять, кто будет с нами, и что тебе хочется выпить, чтобы всё было идеально. Пожалуйста, ответь на пару вопросов ниже — это займёт меньше минуты. 💛
+            </p>
+
+            <!-- Адрес и время -->
+            <div class="address-box">
+                📍 Бульвар Строителей, 20, кв. 931<br>
+                ⏰ Начало в 17:00
+            </div>
+
+            <form action="https://formspree.io/f/xdaqegwn" method="POST">
+                <label for="name">Ваше имя:</label>
+                <input type="text" id="name" name="name" required placeholder="Например, Катя">
+
+                <label>Придёте ли вы на праздник?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="will_come" value="Да, обязательно!" required> Да, обязательно!</label>
+                    <label><input type="radio" name="will_come" value="Нет, к сожалению"> Нет, к сожалению</label>
+                </div>
+
+                <label>Что будете пить?</label>
+                <select id="drink" name="drink" required onchange="toggleJuiceField()">
+                    <option value="" disabled selected>Выберите вариант</option>
+                    <option value="Шампанское">Шампанское</option>
+                    <option value="Сок">Сок</option>
+                    <option value="Вода">Вода</option>
+                    <option value="Другое">Другое (напишу в пожеланиях)</option>
+                </select>
+
+                <!-- Поле для уточнения вида сока -->
+                <div id="juice-detail" style="display:none; margin-top:10px;">
+                    <label for="juice_type">Какой именно сок?</label>
+                    <input type="text" id="juice_type" name="juice_type" placeholder="Например, апельсиновый, яблочный...">
+                </div>
+
+                <label for="guess">Как думаете, кто будет?</label>
+                <select id="guess" name="guess" required>
+                    <option value="" disabled selected>Выберите вариант</option>
+                    <option value="Мальчик">Мальчик</option>
+                    <option value="Девочка">Девочка</option>
+                    <option value="Не знаю">Не знаю</option>
+                </select>
+
+                <label for="wish">Короткое пожелание паре:</label>
+                <textarea id="wish" name="wish" placeholder="Пара тёплых слов..."></textarea>
+
+                <button type="submit">Отправить ответ</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleJuiceField() {
+            const drinkSelect = document.getElementById('drink');
+            const juiceDiv = document.getElementById('juice-detail');
+            if (drinkSelect.value === 'Сок') {
+                juiceDiv.style.display = 'block';
+            } else {
+                juiceDiv.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
